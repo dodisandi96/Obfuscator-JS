@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JS Obfuscator</title>
+  <meta name="description" content="Obfuscate JavaScript code in the browser using javascript-obfuscator." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="logo">🛡️</span>
+      <h1>JavaScript Obfuscator</h1>
+    </div>
+    <nav class="actions">
+      <button id="btn-obfuscate" class="btn primary">Obfuscate</button>
+      <button id="btn-copy" class="btn">Copy Output</button>
+      <button id="btn-download" class="btn">Download</button>
+      <button id="btn-clear" class="btn danger">Clear</button>
+    </nav>
+  </header>
+
+  <main class="app-main">
+    <aside class="sidebar">
+      <h2>Options</h2>
+      <div class="option">
+        <label><input type="checkbox" id="opt-compact" checked> compact</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" id="opt-controlFlowFlattening"> controlFlowFlattening</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" id="opt-deadCodeInjection"> deadCodeInjection</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" id="opt-stringArray" checked> stringArray</label>
+      </div>
+      <div class="option">
+        <label>stringArrayThreshold <input type="number" step="0.01" min="0" max="1" id="opt-stringArrayThreshold" value="0.75"></label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" id="opt-rotateStringArray" checked> rotateStringArray</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" id="opt-simplify" checked> simplify</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" id="opt-numbersToExpressions"> numbersToExpressions</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" id="opt-renameGlobals"> renameGlobals</label>
+      </div>
+      <div class="option">
+        <label>identifierNamesGenerator
+          <select id="opt-identifierNamesGenerator">
+            <option value="hexadecimal">hexadecimal</option>
+            <option value="mangled">mangled</option>
+            <option value="dictionary">dictionary</option>
+          </select>
+        </label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" id="opt-splitStrings"> splitStrings</label>
+      </div>
+      <div class="option">
+        <label>splitStringsChunkLength <input type="number" id="opt-splitStringsChunkLength" value="10" min="1"></label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" id="opt-unicodeEscapeSequence"> unicodeEscapeSequence</label>
+      </div>
+      <div class="option">
+        <label>target
+          <select id="opt-target">
+            <option value="browser">browser</option>
+            <option value="browser-no-eval">browser-no-eval</option>
+            <option value="node">node</option>
+          </select>
+        </label>
+      </div>
+      <div class="option">
+        <button id="btn-reset-options" class="btn">Reset Options</button>
+      </div>
+    </aside>
+
+    <section class="editor">
+      <div class="panel">
+        <div class="panel-header">
+          <span>Input JavaScript</span>
+          <div class="panel-actions">
+            <label class="file-btn">
+              <input type="file" id="file-input" accept=".js,.mjs,.cjs,.txt" hidden>
+              <span>Upload .js</span>
+            </label>
+          </div>
+        </div>
+        <div id="drop-zone" class="drop-zone" aria-label="Drop JS file here">
+          <textarea id="input" spellcheck="false" placeholder="// Paste or type your JavaScript here...
+(function(){
+  function greet(name){
+    console.log('Hello, ' + name + '!');
+  }
+  greet('world');
+})();"></textarea>
+        </div>
+        <div class="stats" id="stats-in">0 bytes</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span>Obfuscated Output</span>
+          <div class="panel-actions"></div>
+        </div>
+        <textarea id="output" spellcheck="false" placeholder="Obfuscated code will appear here..." readonly></textarea>
+        <div class="stats" id="stats-out">0 bytes</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div id="status">Ready</div>
+    <div id="ratio"></div>
+  </footer>
+
+  <!-- Toast notifications -->
+  <div id="toasts" class="toasts" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="https://unpkg.com/javascript-obfuscator/dist/index.browser.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
